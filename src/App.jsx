@@ -3,9 +3,10 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import Nav from './layouts/Nav'
+import TableCust from './components/TableCust'
 
 function App() {
-  const [nav, setNav] = useState(true)
+  const [nav, setNav] = useState(false)
 
   const handleNav = ()=> {
     setNav(!nav)
@@ -27,6 +28,7 @@ function App() {
       }
       <div className='mt-20'>
         <p className='font-[500] text-2xl text-slate-950'>Clientes</p>
+        <TableCust />
       </div>
     </div>
   )
