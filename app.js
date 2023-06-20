@@ -6,6 +6,7 @@ import logger from 'morgan'
 import indexRouter from './routes/index.js'
 import { __dirname } from './utils.js'
 import 'dotenv/config.js'
+import './config/database.js'
 
 const app = express()
 
