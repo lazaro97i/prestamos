@@ -1,8 +1,7 @@
 import '../../config/database.js'
-import { User } from '../user_model.js'
-import 'dotenv/config.js'
+import { Client } from '../client_model.js'
 
-const users = [
+const clients = [
   {
     name: 'Lazaro Tomas Del Prado',
     dni: 40696364,
@@ -33,4 +32,4 @@ const users = [
   },
 ]
 
-User.insertMany(users)
+Client.insertMany(clients)
