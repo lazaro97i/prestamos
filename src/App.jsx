@@ -26,7 +26,7 @@ function App() {
         :
         null
       }
-      <div className='mt-20'>
+      <div className='mt-20 px-1 md:px-3'>
         <p className='font-[500] text-2xl text-slate-950'>Clientes</p>
         <TableCust />
       </div>

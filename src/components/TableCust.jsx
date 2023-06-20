@@ -5,7 +5,7 @@ const TableCust = () => {
     <div className='mt-10'>
       <table className='w-full'>
         <thead>
-          <tr className='text-slate-950 bg-slate-400 bg-opacity-40 grid grid-cols-3 md:grid-cols-5'>
+          <tr className='text-slate-950 bg-slate-400 bg-opacity-40 rounded-t-md grid grid-cols-3 md:grid-cols-5'>
             <th className='col-span-2'>Nombre</th>
             <th className='hidden md:inline'>DNI</th>
             <th className='hidden md:inline'>Celular</th>
@@ -13,7 +13,7 @@ const TableCust = () => {
           </tr>
         </thead>
         <tbody>
-          <tr className='text-slate-950 grid grid-cols-3 md:grid-cols-5 py-3 border-b border-slate-500'>
+          <tr className='text-slate-950 font-[400] grid grid-cols-3 md:grid-cols-5 py-3 border-b border-slate-500 items-center'>
             <td className='col-span-2'>Lazaro Tomas Del Prado</td>
             <td className='hidden md:inline'>40696346</td>
             <td className='hidden md:inline'>3815800354</td>
