@@ -13,7 +13,7 @@ const Clients = () => {
     <div className='w-screen h-screen'>
       <section className=' bg-slate-950 px-8 py-4 flex justify-stasrt items-center w-full gap-4'>
         <img onClick={handleNav} className='w-10 rounded-sm cursor-pointer' src="./icons/menu.svg" alt="menu" />
-        <h1 className='text-slate-300 self-center text-center w-full font-[500] text-3xl'>Sistema de prestamos</h1>
+        <h1 className='text-slate-300 self-center text-center w-full font-[500] text-3xl'>Prestamos</h1>
       </section>
       {
         nav ?
