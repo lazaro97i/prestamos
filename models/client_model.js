@@ -8,4 +8,4 @@ const schema = new mongoose.Schema({
   city: {type: String}
 }, {timestamps: true})
 
-export const User = mongoose.model('user', schema)
+export const Client = mongoose.model('client', schema)
