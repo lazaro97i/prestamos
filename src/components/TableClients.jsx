@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import clientActions from '../store/client/actions'
+import AddClient from './addClient'
 
 const { getClients, deleteClient } = clientActions
 
@@ -8,10 +9,15 @@ const TableClients = () => {
 
   const clientStore = useSelector((store) => store.client)
   const dispatch = useDispatch()
+  const [newClient, setNewClient] = useState(false)
 
   useEffect(() => {
     dispatch(getClients())
   }, [])
+
+  const createClient = () => {
+    setNewClient(!newClient)
+  }
 
   const btnDelete = (e) => {
     const data = {
@@ -27,7 +33,24 @@ const TableClients = () => {
   }
 
   return (
-    <div className='mt-10'>
+    <div className='mt-5 flex flex-col'>
+      <label className='flex flex-col items-center justify-center gap-2 px-10 pb-5 text-slate-950 font-[500] mb-5'>
+        <p className=' text-start w-full max-w-[500px]
+            '>Buscar:</p>
+        <input className='w-full max-w-[500px] h-auto rounded-sm p-1 px-3 outline-none' type="search" name="search" id="search" />
+      </label>
+      <div className='flex justify-between items-center w-4/5 self-center pb-5'>
+          <button onClick={()=>setNewClient(!newClient)} className='bg-lime-800 active:bg-lime-700 w-[200px] h-[46px] rounded-md font-[600]'>Nuevo Cliente</button>
+          <button className='bg-slate-800 p-2 rounded-md cursor-pointer'><svg className=' pointer-events-none' width={30} fill="#cbd5e1" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" stroke="#cbd5e1"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M7 12v-2l-4 3 4 3v-2h2.997A6.006 6.006 0 0 0 16 8h-2a4 4 0 0 1-3.996 4H7zM9 2H6.003A6.006 6.006 0 0 0 0 8h2a4 4 0 0 1 3.996-4H9v2l4-3-4-3v2z" fillRule="evenodd"></path> </g></svg></button>
+        </div>
+        {
+          newClient ? 
+          <AddClient
+          action={createClient}
+          />
+          :
+          null
+        }
       <table className='w-full'>
         <thead>
           <tr className='text-slate-950 bg-slate-400 bg-opacity-40 rounded-t-md grid grid-cols-3 md:grid-cols-5'>

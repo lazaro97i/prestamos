@@ -24,9 +24,8 @@ const Clients = () => {
           :
           null
       }
-      <div className='mt-20 px-1 md:px-3'>
+      <div className='mt-20 px-1 md:px-3 flex flex-col'>
         <p className='font-[500] text-2xl text-slate-950'>Clientes</p>
-        <AddClient />
         <TableClients />
       </div>
     </div>
