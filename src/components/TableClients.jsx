@@ -10,10 +10,11 @@ const TableClients = () => {
   const clientStore = useSelector((store) => store.client)
   const dispatch = useDispatch()
   const [newClient, setNewClient] = useState(false)
+  const [idClient, setIdClient] = useState("")
 
   useEffect(() => {
     dispatch(getClients())
-  }, [])
+  }, [clientStore?.client?.success])
 
   const createClient = () => {
     setNewClient(!newClient)
@@ -32,6 +33,16 @@ const TableClients = () => {
     console.log(e);
   }
 
+  const confirmDelete = (id) => {
+    return (
+      <div className='absolute px-1 top-0 left-0 w-full h-screen flex flex-col justify-center items-center bg-slate-950 bg-opacity-90'>
+        <div className='flex justify-center w-full max-w-[700px] rounded-md md:w-4/5 bg-slate-300 py-10'>
+          {console.log(clientStore?.clients?.response?.find((e) => e._id === idClient))}
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className='mt-5 flex flex-col'>
       <label className='flex flex-col items-center justify-center gap-2 px-10 pb-5 text-slate-950 font-[500] mb-5'>
@@ -39,9 +50,9 @@ const TableClients = () => {
             '>Buscar:</p>
         <input className='w-full max-w-[500px] h-auto rounded-sm p-1 px-3 outline-none' type="search" name="search" id="search" />
       </label>
-      <div className='flex justify-between items-center w-4/5 self-center pb-5'>
+      <div className='flex justify-between items-center w-4/5 max-w-[800px] self-center pb-5'>
           <button onClick={()=>setNewClient(!newClient)} className='bg-lime-800 active:bg-lime-700 w-[200px] h-[46px] rounded-md font-[600]'>Nuevo Cliente</button>
-          <button className='bg-slate-800 p-2 rounded-md cursor-pointer'><svg className=' pointer-events-none' width={30} fill="#cbd5e1" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" stroke="#cbd5e1"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M7 12v-2l-4 3 4 3v-2h2.997A6.006 6.006 0 0 0 16 8h-2a4 4 0 0 1-3.996 4H7zM9 2H6.003A6.006 6.006 0 0 0 0 8h2a4 4 0 0 1 3.996-4H9v2l4-3-4-3v2z" fillRule="evenodd"></path> </g></svg></button>
+          <button className='bg-slate-800 p-2 rounded-md cursor-pointer'><svg className=' pointer-events-none' width={30} fill="#f3f4f6" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" stroke="#f3f4f6"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M7 12v-2l-4 3 4 3v-2h2.997A6.006 6.006 0 0 0 16 8h-2a4 4 0 0 1-3.996 4H7zM9 2H6.003A6.006 6.006 0 0 0 0 8h2a4 4 0 0 1 3.996-4H9v2l4-3-4-3v2z" fillRule="evenodd"></path> </g></svg></button>
         </div>
         {
           newClient ? 
@@ -51,7 +62,7 @@ const TableClients = () => {
           :
           null
         }
-      <table className='w-full'>
+      <table className='w-full self-center max-w-[1300px]'>
         <thead>
           <tr className='text-slate-950 bg-slate-400 bg-opacity-40 rounded-t-md grid grid-cols-3 md:grid-cols-5'>
             <th className='col-span-2'>Nombre</th>
@@ -73,7 +84,7 @@ const TableClients = () => {
                     {/* ---------------------------- */}
                     <td id={client._id} onClick={btnEdit} className='flex justify-center items-center cursor-pointer'><svg className=' pointer-events-none' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width='23px' fill="#ca8a04" stroke="#ca8a04"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <title></title> <g id="Complete"> <g id="edit"> <g> <path d="M20,16v4a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V6A2,2,0,0,1,4,4H8" fill="none" stroke="#ca8a04" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5"></path> <polygon fill="none" points="12.5 15.8 22 6.2 17.8 2 8.3 11.5 8 16 12.5 15.8" stroke="#ca8a04" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5"></polygon> </g> </g> </g> </g></svg></td>
                     {/* -------------------------------- */}
-                    <td id={client._id} onClick={btnDelete} className='flex justify-center items-center cursor-pointer'><svg className=' pointer-events-none' viewBox="0 0 24 24" width='27px' fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M10 11V17" stroke="#b91c1c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> <path d="M14 11V17" stroke="#b91c1c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> <path d="M4 7H20" stroke="#b91c1c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> <path d="M6 7H12H18V18C18 19.6569 16.6569 21 15 21H9C7.34315 21 6 19.6569 6 18V7Z" stroke="#b91c1c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> <path d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z" stroke="#b91c1c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> </g></svg></td>
+                    <td id={client._id} onClick={()=>setIdClient(client._id)} className='flex justify-center items-center cursor-pointer'><svg className=' pointer-events-none' viewBox="0 0 24 24" width='27px' fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M10 11V17" stroke="#b91c1c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> <path d="M14 11V17" stroke="#b91c1c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> <path d="M4 7H20" stroke="#b91c1c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> <path d="M6 7H12H18V18C18 19.6569 16.6569 21 15 21H9C7.34315 21 6 19.6569 6 18V7Z" stroke="#b91c1c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> <path d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z" stroke="#b91c1c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> </g></svg></td>
                   </td>
                 </tr>
               )
@@ -81,6 +92,7 @@ const TableClients = () => {
           }
         </tbody>
       </table>
+      {/* <ConfirmDelete /> */}
     </div>
   )
 }

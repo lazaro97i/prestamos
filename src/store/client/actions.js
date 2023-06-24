@@ -38,10 +38,28 @@ const deleteClient = createAsyncThunk('clients/deleteClient', async({id}) => {
     }
   }
 })
+const createClient = createAsyncThunk('clients/createClient', async(data) => {
+
+  try{
+    const response = await axios.post(`${API_URL}/clients`, data)
+    console.log(response)
+    return{
+      client: response.data,
+      message: 'Client created successfully :)'
+    }
+  }catch(err){
+    console.log(err)
+    return{
+      client: null,
+      message: 'Could not create client :('
+    }
+  }
+})
 
 const clientActions = {
   getClients,
-  deleteClient
+  deleteClient,
+  createClient
 }
 
 export default clientActions

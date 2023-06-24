@@ -31,8 +31,6 @@ const controller = {
 
     const { id } = req.body
 
-    console.log(id)
-
     try{
       const client = await Client.findByIdAndDelete(id)
       if(client){
@@ -47,6 +45,29 @@ const controller = {
           response: 'Client not found :('
         })
       }
+    }catch(err){
+      console.log(err)
+      next()
+    }
+  },
+  create: async(req, res, next) => {
+    
+    const {name, dni, phone, address, city} = req.body
+
+    try{
+      const client = await Client.create({name: name, dni: dni, phone: phone, address: address, city: city})
+      if(client){
+        res.status(201).json({
+          success: true,
+          message: 'Client created successfully :)',
+          new_client: client
+        })
+      }else{
+        res.status(400).json({
+          success: false,
+          message: 'Could not create client :('
+        })
+      }     
     }catch(err){
       console.log(err)
       next()
