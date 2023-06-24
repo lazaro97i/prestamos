@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Nav from '../layouts/Nav'
 import TableClients from '../components/TableClients'
+import AddClient from './addClient'
 
 const Clients = () => {
   const [nav, setNav] = useState(false)
@@ -25,6 +26,7 @@ const Clients = () => {
       }
       <div className='mt-20 px-1 md:px-3'>
         <p className='font-[500] text-2xl text-slate-950'>Clientes</p>
+        <AddClient />
         <TableClients />
       </div>
     </div>
