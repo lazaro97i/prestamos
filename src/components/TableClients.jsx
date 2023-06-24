@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import clientActions from '../store/client/actions'
 
-const { getClients } = clientActions
+const { getClients, deleteClient } = clientActions
 
 const TableClients = () => {
 
@@ -14,7 +14,10 @@ const TableClients = () => {
   }, [])
 
   const btnDelete = (e) => {
-    console.log(e);
+    const data = {
+      id: e.target.id
+    }
+    dispatch(deleteClient(data))
   }
   const btnEdit = (e) => {
     console.log(e);

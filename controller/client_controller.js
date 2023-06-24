@@ -31,6 +31,8 @@ const controller = {
 
     const { id } = req.body
 
+    console.log(id)
+
     try{
       const client = await Client.findByIdAndDelete(id)
       if(client){
