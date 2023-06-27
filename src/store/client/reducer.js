@@ -7,7 +7,6 @@ const initialState = {
   clients: [],
   client: [],
   message: [],
-  status: null
 }
 
 const clientReducer = createReducer(initialState, (builder) => {
@@ -18,6 +17,7 @@ const clientReducer = createReducer(initialState, (builder) => {
         client: action.payload.client,
         message: action.payload.message,
       }
+      console.log(newState);
       return newState
     })
     .addCase(createClient.fulfilled, (state, action) => {
@@ -26,6 +26,7 @@ const clientReducer = createReducer(initialState, (builder) => {
         client: action.payload.client,
         message: action.payload.message,
       }
+      console.log(newState);
       return newState
     })
 })

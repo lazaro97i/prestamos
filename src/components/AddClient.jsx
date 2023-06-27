@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import clientActions from '../store/client/actions'
 import { useDispatch, useSelector } from 'react-redux'
 
-const { createClient } = clientActions
+const { createClient, getClients } = clientActions
 
 const AddClient = ({ action }) => {
 
@@ -16,29 +16,24 @@ const AddClient = ({ action }) => {
   const inpAddress = useRef('')
   const inpCity = useRef('')
 
-  const created = () => {
-    setTimeout(() => {
-      console.log(clientStore?.clients?.success)
-      if (clientStore?.clients?.success) {
-        setConfirmClient(!confirmClient)
-        action()
-      }
-    }, 800)
-
-  }
-
-  const addClient = async(e) => {
-    const data = {
-      name: inpName.current.value,
-      dni: inpDni.current.value,
-      phone: inpPhone.current.value,
-      address: inpAddress.current.value,
-      city: inpCity.current.value
+  const addClient = async() => {
+    const allData = {
+      data: {
+        name: inpName.current.value,
+        dni: inpDni.current.value,
+        phone: inpPhone.current.value,
+        address: inpAddress.current.value,
+        city: inpCity.current.value
+      },
+      action: action,
+      conf: handleConfirm
     }
-    dispatch(createClient(data))
-    await created()
+    dispatch(createClient(allData))
   }
 
+  const handleConfirm = ()=>{
+    setConfirmClient(!confirmClient)
+  }
 
   const ConfirmClient = () => {
     return (

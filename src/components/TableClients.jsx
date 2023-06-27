@@ -66,7 +66,7 @@ const TableClients = () => {
       </label>
       <div className='flex justify-between items-center w-4/5 max-w-[800px] self-center pb-5'>
         <button onClick={() => setNewClient(!newClient)} className='bg-lime-800 active:bg-lime-700 w-[200px] h-[46px] rounded-md font-[600]'>Nuevo Cliente</button>
-        <button className='bg-slate-800 p-2 rounded-md cursor-pointer'><svg className=' pointer-events-none' width={30} fill="#f3f4f6" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" stroke="#f3f4f6"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M7 12v-2l-4 3 4 3v-2h2.997A6.006 6.006 0 0 0 16 8h-2a4 4 0 0 1-3.996 4H7zM9 2H6.003A6.006 6.006 0 0 0 0 8h2a4 4 0 0 1 3.996-4H9v2l4-3-4-3v2z" fillRule="evenodd"></path> </g></svg></button>
+        <button onClick={()=> dispatch(getClients())} className='bg-slate-800 p-2 rounded-md cursor-pointer'><svg className=' pointer-events-none' width={30} fill="#f3f4f6" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" stroke="#f3f4f6"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M7 12v-2l-4 3 4 3v-2h2.997A6.006 6.006 0 0 0 16 8h-2a4 4 0 0 1-3.996 4H7zM9 2H6.003A6.006 6.006 0 0 0 0 8h2a4 4 0 0 1 3.996-4H9v2l4-3-4-3v2z" fillRule="evenodd"></path> </g></svg></button>
       </div>
       {
         newClient ?
