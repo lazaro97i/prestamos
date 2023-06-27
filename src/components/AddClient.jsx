@@ -16,7 +16,18 @@ const AddClient = ({ action }) => {
   const inpAddress = useRef('')
   const inpCity = useRef('')
 
-  const addClient = async (e) => {
+  const created = () => {
+    setTimeout(() => {
+      console.log(clientStore?.clients?.success)
+      if (clientStore?.clients?.success) {
+        setConfirmClient(!confirmClient)
+        action()
+      }
+    }, 800)
+
+  }
+
+  const addClient = async(e) => {
     const data = {
       name: inpName.current.value,
       dni: inpDni.current.value,
@@ -25,11 +36,9 @@ const AddClient = ({ action }) => {
       city: inpCity.current.value
     }
     dispatch(createClient(data))
-    setTimeout(() => {
-      setConfirmClient(!confirmClient)
-      action()
-    }, 800)
+    await created()
   }
+
 
   const ConfirmClient = () => {
     return (
