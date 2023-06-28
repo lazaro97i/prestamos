@@ -12,9 +12,11 @@ const TableClients = () => {
   const [newClient, setNewClient] = useState(false)
   const [delClient, setDelClient] = useState(false)
   const [idClient, setIdClient] = useState(null)
+  const [filter, setFilter] = useState('')
 
   useEffect(() => {
     dispatch(getClients())
+    filterBySearch
   }, [clientStore?.client?.success])
 
   const createClient = () => {
@@ -26,7 +28,7 @@ const TableClients = () => {
       id: idClient
     }
     dispatch(deleteClient(data))
-    setTimeout(()=> {
+    setTimeout(() => {
       setDelClient(!delClient)
       dispatch(getClients())
     }, 800)
@@ -37,7 +39,10 @@ const TableClients = () => {
   const btnView = (e) => {
     console.log(e);
   }
-
+  const filterBySearch = (e) => {
+    setFilter(e.target.value.toLowerCase())
+  }
+  
   const ConfirmDelete = () => {
     const currentClient = clientStore?.clients?.response.find((e) => e._id === idClient)
 
@@ -62,11 +67,11 @@ const TableClients = () => {
       <label className='flex flex-col items-center justify-center gap-2 px-10 pb-5 text-slate-950 font-[500] mb-5'>
         <p className=' text-start w-full max-w-[500px]
             '>Buscar:</p>
-        <input className='w-full max-w-[500px] h-auto rounded-sm p-1 px-3 outline-none' type="search" name="search" id="search" />
+        <input onInput={filterBySearch} className='w-full max-w-[500px] h-auto rounded-sm p-1 px-3 outline-none' type="search" name="search" id="search" />
       </label>
       <div className='flex justify-between items-center w-4/5 max-w-[800px] self-center pb-5'>
         <button onClick={() => setNewClient(!newClient)} className='bg-lime-800 active:bg-lime-700 w-[200px] h-[46px] rounded-md font-[600]'>Nuevo Cliente</button>
-        <button onClick={()=> dispatch(getClients())} className='bg-slate-800 p-2 rounded-md cursor-pointer'><svg className=' pointer-events-none' width={30} fill="#f3f4f6" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" stroke="#f3f4f6"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M7 12v-2l-4 3 4 3v-2h2.997A6.006 6.006 0 0 0 16 8h-2a4 4 0 0 1-3.996 4H7zM9 2H6.003A6.006 6.006 0 0 0 0 8h2a4 4 0 0 1 3.996-4H9v2l4-3-4-3v2z" fillRule="evenodd"></path> </g></svg></button>
+        <button onClick={() => dispatch(getClients())} className='bg-slate-800 p-2 rounded-md cursor-pointer'><svg className=' pointer-events-none' width={30} fill="#f3f4f6" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" stroke="#f3f4f6"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M7 12v-2l-4 3 4 3v-2h2.997A6.006 6.006 0 0 0 16 8h-2a4 4 0 0 1-3.996 4H7zM9 2H6.003A6.006 6.006 0 0 0 0 8h2a4 4 0 0 1 3.996-4H9v2l4-3-4-3v2z" fillRule="evenodd"></path> </g></svg></button>
       </div>
       {
         newClient ?
@@ -85,9 +90,9 @@ const TableClients = () => {
             <th className='col-span-1'>Cliente</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody >
           {
-            clientStore?.clients?.response?.map((client) => {
+            clientStore?.clients?.response?.filter(e => e.name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(filter)).map((client) => {
               return (
                 <tr key={client._id} className='text-slate-950 font-[400] grid grid-cols-3 md:grid-cols-5 py-3 border-b border-slate-500 items-center'>
                   <td className='col-span-2'>{client.name}</td>
@@ -98,7 +103,7 @@ const TableClients = () => {
                     {/* ---------------------------- */}
                     <td id={client._id} onClick={btnEdit} className='flex justify-center items-center cursor-pointer'><svg className=' pointer-events-none' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width='23px' fill="#ca8a04" stroke="#ca8a04"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <title></title> <g id="Complete"> <g id="edit"> <g> <path d="M20,16v4a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V6A2,2,0,0,1,4,4H8" fill="none" stroke="#ca8a04" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5"></path> <polygon fill="none" points="12.5 15.8 22 6.2 17.8 2 8.3 11.5 8 16 12.5 15.8" stroke="#ca8a04" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5"></polygon> </g> </g> </g> </g></svg></td>
                     {/* -------------------------------- */}
-                    <td onClick={() => {setIdClient(client._id), setDelClient(!delClient)}} className='flex justify-center items-center cursor-pointer'><svg className=' pointer-events-none' viewBox="0 0 24 24" width='27px' fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M10 11V17" stroke="#b91c1c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> <path d="M14 11V17" stroke="#b91c1c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> <path d="M4 7H20" stroke="#b91c1c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> <path d="M6 7H12H18V18C18 19.6569 16.6569 21 15 21H9C7.34315 21 6 19.6569 6 18V7Z" stroke="#b91c1c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> <path d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z" stroke="#b91c1c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> </g></svg></td>
+                    <td onClick={() => { setIdClient(client._id), setDelClient(!delClient) }} className='flex justify-center items-center cursor-pointer'><svg className=' pointer-events-none' viewBox="0 0 24 24" width='27px' fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M10 11V17" stroke="#b91c1c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> <path d="M14 11V17" stroke="#b91c1c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> <path d="M4 7H20" stroke="#b91c1c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> <path d="M6 7H12H18V18C18 19.6569 16.6569 21 15 21H9C7.34315 21 6 19.6569 6 18V7Z" stroke="#b91c1c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> <path d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z" stroke="#b91c1c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> </g></svg></td>
                   </td>
                 </tr>
               )
@@ -107,10 +112,10 @@ const TableClients = () => {
         </tbody>
       </table>
       {
-        delClient ? 
-        <ConfirmDelete />
-        :
-        null
+        delClient ?
+          <ConfirmDelete />
+          :
+          null
       }
     </div>
   )

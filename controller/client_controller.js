@@ -8,7 +8,7 @@ const controller = {
     try{
       
       const clients = await Client.find()
-
+      clients.sort((a, b) => a.name.localeCompare(b.name))
       if(clients){
         res.status(200).json({
           success: true,
