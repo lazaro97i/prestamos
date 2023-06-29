@@ -36,22 +36,22 @@ const deleteClient = createAsyncThunk('clients/deleteClient', async ({ id }) => 
     }
   }
 })
-const createClient = createAsyncThunk('clients/createClient', async ({data: data, action, conf}) => {
+const createClient = createAsyncThunk('clients/createClient', async ({data, action, handleConfirm}) => {
   try {
     const response = await axios.post(`${API_URL}/clients`, data)
     setTimeout(() => {
-      conf()
+      handleConfirm()
       action()
     }, 800)
     return {
       client: response.data,
       message: 'Client created successfully :)'
     }
-  } catch (err) {
-    console.log(err)
+  } catch (e) {
+    console.log(e)
     return {
       client: null,
-      message: 'Could not create client :('
+      message: e.response.data
     }
   }
 })

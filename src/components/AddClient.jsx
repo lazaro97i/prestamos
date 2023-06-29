@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import clientActions from '../store/client/actions'
 import { useDispatch, useSelector } from 'react-redux'
+import toast from 'react-hot-toast'
 
 const { createClient, getClients } = clientActions
 
@@ -16,24 +17,42 @@ const AddClient = ({ action }) => {
   const inpAddress = useRef('')
   const inpCity = useRef('')
 
-  const addClient = async() => {
-    const allData = {
-      data: {
-        name: inpName.current.value,
-        dni: inpDni.current.value,
-        phone: inpPhone.current.value,
-        address: inpAddress.current.value,
-        city: inpCity.current.value
-      },
-      action: action,
-      conf: handleConfirm
-    }
-    dispatch(createClient(allData))
+  const successAlert = () => {
+    toast.success('Cliente agregado correctamente 👍')
+  }
+  const errorAlert = () => {
+    clientStore?.message?.message?.map((e) => {
+      toast.error(e.message)
+    })
   }
 
-  const handleConfirm = ()=>{
+  const addClient = async () => {
+    const data = {
+      name: inpName.current.value,
+      dni: inpDni.current.value,
+      phone: inpPhone.current.value,
+      address: inpAddress.current.value,
+      city: inpCity.current.value
+    }
+    dispatch(
+      createClient({
+        data,
+        action,
+        handleConfirm
+      })
+    )
+  }
+  const handleConfirm = () => {
     setConfirmClient(!confirmClient)
   }
+
+  useEffect(()=>{
+    if (clientStore?.client) {
+      successAlert()
+    } else {
+      errorAlert()
+    }
+  }, [clientStore])
 
   const ConfirmClient = () => {
     return (
