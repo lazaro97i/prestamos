@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import clientActions from '../store/client/actions'
 import AddClient from './addClient'
+import toast from 'react-hot-toast'
 
 const { getClients, deleteClient } = clientActions
 
@@ -16,22 +17,32 @@ const TableClients = () => {
 
   useEffect(() => {
     dispatch(getClients())
-    filterBySearch
   }, [clientStore?.client?.success])
 
   const createClient = () => {
     setNewClient(!newClient)
   }
 
-  const btnDelete = () => {
-    const data = {
-      id: idClient
+  const btnDelete = async() => {
+    try{
+      const data = {
+        id: idClient
+      }
+      setTimeout(() => {
+        setDelClient(!delClient)
+        dispatch(getClients())
+      }, 800)
+      await toast.promise(
+        dispatch(deleteClient(data)),
+        {
+          loading: 'Eliminando cliente ...',
+          success: 'Cliente eliminado correctamente',
+          error: 'Error al eliminar cliente'
+        }
+      )
+    }catch(e){
+      console.log(e)
     }
-    dispatch(deleteClient(data))
-    setTimeout(() => {
-      setDelClient(!delClient)
-      dispatch(getClients())
-    }, 800)
   }
   const btnEdit = (e) => {
     console.log(e);
