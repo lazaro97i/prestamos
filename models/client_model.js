@@ -1,10 +1,10 @@
 import mongoose from "mongoose"
 
 const schema = new mongoose.Schema({
-  name: {type: String, required:true},
-  dni: {type: Number, required: true},
-  phone: {type:Number, required:true},
-  address: {type: String, required: true},
+  name: {type: String},
+  dni: {type: Number},
+  phone: {type:Number},
+  address: {type: String},
   city: {type: String}
 }, {timestamps: true})
 

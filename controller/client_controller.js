@@ -63,7 +63,7 @@ const controller = {
           new_client: client
         })
       }else{
-        res.status(400).json({
+        res.status(404).json({
           success: false,
           message: 'Could not create client :('
         })
