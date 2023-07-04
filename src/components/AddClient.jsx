@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import clientActions from '../store/client/actions'
 import { useDispatch, useSelector } from 'react-redux'
 import toast from 'react-hot-toast'
+import ClientData from './ClientData'
 
 const { createClient, getClients } = clientActions
 
@@ -26,14 +27,16 @@ const AddClient = ({ action }) => {
     })
   }
 
+  const data = {
+    name: inpName.current.value,
+    dni: inpDni.current.value,
+    phone: inpPhone.current.value,
+    address: inpAddress.current.value,
+    city: inpCity.current.value
+  }
+
   const addClient = async () => {
-    const data = {
-      name: inpName.current.value,
-      dni: inpDni.current.value,
-      phone: inpPhone.current.value,
-      address: inpAddress.current.value,
-      city: inpCity.current.value
-    }
+        
     dispatch(
       createClient({
         data,
@@ -54,34 +57,16 @@ const AddClient = ({ action }) => {
     }
   }, [clientStore])
 
-  const ConfirmClient = () => {
-    return (
-      <div className='absolute px-1 top-0 left-0 w-full h-screen flex flex-col justify-center items-center bg-slate-950 bg-opacity-90'>
-        <div className='flex justify-center w-full max-w-[700px] rounded-md md:w-4/5 bg-slate-300 py-10'>
-          <div className=' grid grid-cols-2 gap-3 items-center'>
-            <p className='text-slate-950 font-[600] text-3xl pb-10 px-5 col-span-2'>Desea confirmar cliente ?</p>
-            <p className='px-5 text-lime-700 col-span-2 font-[600] text-2xl pb-5'>{inpName.current.value}</p>
-            <span className='font-[700] col-span-1 text-slate-950 pr-3'>Documento:</span><p className=' text-slate-950 font-[500] col-span-1'>{inpDni.current.value}</p>
-            <span className='font-[700] col-span-1 text-slate-950 pr-3'>Telefono:</span><p className=' text-slate-950 font-[500] col-span-1'>{inpPhone.current.value}</p>
-            <span className='font-[700] col-span-1 text-slate-950 pr-3'>Direccion:</span> <p className=' text-slate-950 font-[500] col-span-1'>{inpAddress.current.value}</p>
-            <span className='font-[700] col-span-1 text-slate-950 pr-3'>Barrio / Ciudad:</span><p className=' text-slate-950 font-[500] col-span-1'>{inpCity.current.value}</p>
-            <div className='flex w-full justify-center items-center gap-20 pt-10 col-span-2'>
-              <input onClick={addClient} className='bg-lime-700 active:bg-lime-600 w-[100px] cursor-pointer py-1.5 rounded-md font-[800]' type="button" value="Confirmar" />
-              <input onClick={() => setConfirmClient(!confirmClient)} className='bg-red-800 active:bg-red-700 w-[100px] cursor-pointer py-1.5 rounded-md font-[800]' type="button" value="Cancelar" />
-            </div>
-          </div>
-        </div>
-      </div>
-    )
-  }
-
   return (
     <div className='absolute px-1 top-0 left-0 w-full h-screen flex flex-col justify-center items-center bg-slate-950 bg-opacity-50'>
-      {
-        confirmClient ?
-          <ConfirmClient />
-          :
-          null
+      { confirmClient ? 
+        <ClientData
+        data = {data}
+        add = {addClient}
+        cancel = {handleConfirm}
+        />
+        :
+        null
       }
       <div className=' w-full rounded-md md:w-4/5 bg-slate-300 flex flex-col py-10'>
         <p className='text-slate-950 font-[600] text-3xl pb-10'>Nuevo Cliente</p>
