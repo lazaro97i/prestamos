@@ -32,7 +32,7 @@ const TableClients = () => {
       }
       setTimeout(() => {
         setDelClient(!delClient)
-        setClientData(!clientData)
+        clientData ? setClientData(!clientData) : null
         dispatch(getClients())
       }, 800)
       await toast.promise(
