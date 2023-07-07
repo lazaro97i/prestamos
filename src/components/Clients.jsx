@@ -11,7 +11,7 @@ const Clients = () => {
   }
 
   return (
-    <div className='w-screen h-screen'>
+    <div className='w-screen h-auto'>
       <Toaster 
       toastOptions={{
         duration: 5000

@@ -37,6 +37,16 @@ const schema = Joi.object({
     'string.max': 'Barrio/Ciudad demasiado larga',
     'string.base': 'La Barrio/Ciudad debe ser un texto',
   }),
+  date: Joi.string().required().messages({
+    'any.required': 'Fecha obligatoria',
+    'string.empty': 'Fecha obligatoria',
+  }),
+  amount: Joi.number().required().positive().integer().messages({
+    'any.required': 'Monto obligatorio',
+    'number.empty': 'Monto obligatorio',
+    'number.base': 'Monto no valido',
+    'number.positive': 'Monto no valido, no incluir signos'
+  }),
 })
 
 export default schema

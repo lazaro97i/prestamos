@@ -17,6 +17,8 @@ const AddClient = ({ action }) => {
   const inpPhone = useRef('')
   const inpAddress = useRef('')
   const inpCity = useRef('')
+  const inpDate = useRef('')
+  const inpAmount = useRef('')
 
   const successAlert = () => {
     toast.success('Cliente agregado correctamente 👍')
@@ -32,7 +34,9 @@ const AddClient = ({ action }) => {
     dni: inpDni.current.value,
     phone: inpPhone.current.value,
     address: inpAddress.current.value,
-    city: inpCity.current.value
+    city: inpCity.current.value,
+    date: inpDate.current.value,
+    amount: inpAmount.current.value
   }
 
   const addClient = async () => {
@@ -58,7 +62,7 @@ const AddClient = ({ action }) => {
   }, [clientStore])
 
   return (
-    <div className='absolute px-1 top-0 left-0 w-full h-screen flex flex-col justify-center items-center bg-slate-950 bg-opacity-50'>
+    <div className='absolute top-0 left-0 w-screen h-screen px-1 py-20 flex flex-col justify-center items-center bg-slate-950 bg-opacity-50'>
       { confirmClient ? 
         <ClientData
         data = {data}
@@ -68,7 +72,7 @@ const AddClient = ({ action }) => {
         :
         null
       }
-      <div className=' w-full rounded-md md:w-4/5 bg-slate-300 flex flex-col py-10'>
+      <div className=' w-full max-h-screen overflow-auto scroll rounded-md md:w-4/5 bg-slate-300 flex flex-col py-10'>
         <p className='text-slate-950 font-[600] text-3xl pb-10'>Nuevo Cliente</p>
         <form action="get" className='w-full max-w-[900px] self-center'>
           <label className='flex flex-wrap items-center justify-center md:grid md:grid-cols-3 gap-2 px-10 text-slate-950 font-[500] mb-5'>
@@ -91,10 +95,20 @@ const AddClient = ({ action }) => {
             '>Direccion:</p>
             <input ref={inpAddress} className='w-full col-span-2 h-auto rounded-sm p-1 px-3 outline-none bg-slate-100 bg-opacity-60' type="text" name="address" id="address" />
           </label>
-          <label className='flex flex-wrap items-center justify-center md:grid md:grid-cols-3 gap-2 px-10 text-slate-950 font-[500]'>
+          <label className='flex flex-wrap items-center justify-center md:grid md:grid-cols-3 gap-2 px-10 text-slate-950 font-[500] mb-5'>
             <p className=' text-start w-full md:w-auto col-span-1
             '>Barrio / Ciudad:</p>
             <input ref={inpCity} className='w-full col-span-2 h-auto rounded-sm p-1 px-3 outline-none bg-slate-100 bg-opacity-60' type="text" name="city" id="city" />
+          </label>
+          <label className='flex flex-wrap items-center justify-center md:grid md:grid-cols-3 gap-2 px-10 text-slate-950 font-[500] mb-5'>
+            <p className=' text-start w-full md:w-auto col-span-1
+            '>Fecha de prestamo:</p>
+            <input ref={inpDate} className='w-full col-span-2 h-auto rounded-sm p-1 px-3 outline-none bg-slate-100 bg-opacity-60' type="date" name="date" id="date" />
+          </label>
+          <label className='flex flex-wrap items-center justify-center md:grid md:grid-cols-3 gap-2 px-10 text-slate-950 font-[500] mb-5'>
+            <p className=' text-start w-full md:w-auto col-span-1
+            '>Monto:</p>
+            <input ref={inpAmount} className='w-full col-span-2 h-auto rounded-sm p-1 px-3 outline-none bg-slate-100 bg-opacity-60' type="number" name="amount" id="amount" placeholder='$'/>
           </label>
           <div className='flex w-full justify-center items-center gap-20 pt-10'>
             <input onClick={() => setConfirmClient(!confirmClient)} className='bg-lime-700 active:bg-lime-600 w-[100px] cursor-pointer py-1.5 rounded-md font-[800]' type="button" value="Crear" />
