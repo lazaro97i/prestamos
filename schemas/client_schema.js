@@ -47,6 +47,19 @@ const schema = Joi.object({
     'number.base': 'Monto no valido',
     'number.positive': 'Monto no valido, no incluir signos'
   }),
+  payment: Joi.number().required().messages({
+    'any.required': 'Tipo de pago obligatorio',
+    'number.empty': 'Tipo de pago obligatorio',
+    'number.base': 'Tipo de pago no valido',
+  }),
+  dues: Joi.number().required().max(100).min(1).messages({
+    'any.required': 'Cuotas obligatorias',
+    'number.empty': 'Cuotas obligatorias',
+    'number.min': 'Cuotas no validas minimo 1',
+    'number.max': 'Cuotas no validas maximo 100',
+    'number.base': 'Cuotas no validas',
+    'number.positive': 'Cuotas no validas, no incluir signos'
+  }),
 })
 
 export default schema

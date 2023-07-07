@@ -52,10 +52,10 @@ const controller = {
   },
   create: async(req, res, next) => {
     
-    const {name, dni, phone, address, city, date, amount} = req.body
+    const {name, dni, phone, address, city, date, amount, payment, dues} = req.body
 
     try{
-      const client = await Client.create({name: name, dni: dni, phone: phone, address: address, city: city, date: date, amount: amount})
+      const client = await Client.create({name: name, dni: dni, phone: phone, address: address, city: city, date: date, amount: amount, payment: payment, dues: dues})
       if(client){
         res.status(201).json({
           success: true,
