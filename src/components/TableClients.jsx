@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import clientActions from '../store/client/actions'
-import AddClient from './addClient'
+import AddClient from './AddClient'
 import toast from 'react-hot-toast'
 import ClientData from './ClientData'
 
