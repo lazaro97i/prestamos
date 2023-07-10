@@ -67,7 +67,7 @@ const AddClient = ({ action }) => {
   }, [clientStore])
 
   return (
-    <div className='absolute top-0 left-0 w-screen h-screen px-1 py-20 flex flex-col justify-center items-center bg-slate-950 bg-opacity-90'>
+    <div className='fixed top-0 left-0 w-screen h-screen px-1 py-10 flex flex-col justify-center items-center bg-slate-950 bg-opacity-90'>
       {confirmClient ?
         <ClientData
           data={data}

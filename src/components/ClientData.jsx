@@ -13,8 +13,8 @@ const ClientData = ({ data, add, cancel, deleteClient}) => {
   }
 
   return (
-    <div className='fixed px-1 top-0 left-0 w-full h-screen flex flex-col justify-center items-center bg-slate-950 bg-opacity-90'>
-      <div className='flex justify-center w-full max-w-[700px] max-h-screen rounded-md md:w-4/5 bg-slate-300 py-10'>
+    <div className='fixed px-1 top-0 left-0 w-full flex flex-col justify-center items-center bg-slate-950 bg-opacity-90 py-10 h-screen'>
+      <div className='flex justify-center w-full max-w-[700px] max-h-screen overflow-auto rounded-md md:w-4/5 bg-slate-300 py-10'>
         <div className=' grid grid-cols-2 gap-3 items-center w-max-[600px]'>
           <p className='text-slate-950 font-[600] text-3xl pb-10 px-5 col-span-2'>{add ? 'Desea confirmar cliente ?' : 'Datos del cliente'}</p>
           <p className='px-5 text-lime-700 col-span-2 font-[600] text-2xl pb-5'>{data ? data.name : null}</p>
@@ -26,7 +26,7 @@ const ClientData = ({ data, add, cancel, deleteClient}) => {
           <span className='font-[700] text-end col-span-1 text-slate-950 pr-3'>Monto:</span><p className=' text-slate-950 text-start font-[500] col-span-1 pl-3'>$ {data ? data.amount : null}</p>
           <span className='font-[700] text-end col-span-1 text-slate-950 pr-3'>Pago:</span><p className=' text-slate-950 text-start font-[500] col-span-1 pl-3'>{pago}</p>
           <span className='font-[700] text-end col-span-1 text-slate-950 pr-3'>Cuotas:</span><p className=' text-slate-950 text-start font-[500] col-span-1 pl-3'>{data ? data.dues : null}</p>
-          <div className='flex w-full flex-wrap justify-center items-center gap-10 px-5 pt-8 col-span-2'>
+          <div className='flex w-full flex-wrap justify-center items-center gap-10 px-5 py-8 col-span-2'>
             {
               add ?
                 <>
