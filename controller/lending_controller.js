@@ -29,7 +29,6 @@ const controller = {
   getLendingsOfClient: async(req, res, next) => {
 
     const { client_id="649631ba1cb10bdc16bdd574" } = req.body
-
     try{
       const lendings = await Lending.find({client_id: client_id})
 
@@ -52,10 +51,8 @@ const controller = {
     }
   },
   getLending: async(req, res, next) => {
-
     
     const { id }  = req.params
-    console.log(q)
     
     try{
       
