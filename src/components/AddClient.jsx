@@ -105,7 +105,7 @@ const AddClient = ({ action }) => {
             '>Barrio / Ciudad:</p>
             <input ref={inpCity} className='w-full col-span-2 h-auto rounded-sm p-1 px-3 outline-none bg-slate-100 bg-opacity-60' type="text" name="city" id="city" />
           </label>
-          <label className='flex flex-wrap items-center justify-center md:grid md:grid-cols-3 gap-2 px-10 text-slate-950 font-[500] mb-5'>
+          {/* <label className='flex flex-wrap items-center justify-center md:grid md:grid-cols-3 gap-2 px-10 text-slate-950 font-[500] mb-5'>
             <p className=' text-start w-full md:w-auto col-span-1
             '>Fecha de prestamo:</p>
             <input ref={inpDate} className='w-full col-span-2 h-auto rounded-sm p-1 px-3 outline-none bg-slate-100 bg-opacity-60' type="date" name="date" id="date" />
@@ -131,7 +131,7 @@ const AddClient = ({ action }) => {
             <p className=' text-start w-full md:w-auto col-span-1
             '>Cuotas:</p>
             <input ref={inpDues} className='w-full col-span-2 h-auto rounded-sm p-1 px-3 outline-none bg-slate-100 bg-opacity-60' type="number" name="dues" id="dues" />
-          </label>
+          </label> */}
           <div className='flex w-full justify-center items-center gap-20 pt-10'>
             <input onClick={() => setConfirmClient(!confirmClient)} className='bg-lime-700 active:bg-lime-600 w-[100px] cursor-pointer py-1.5 rounded-md font-[800]' type="button" value="Crear" />
             <input onClick={action} className='bg-red-800 active:bg-red-700 w-[100px] cursor-pointer py-1.5 rounded-md font-[800]' type="button" value="Cancelar" />
