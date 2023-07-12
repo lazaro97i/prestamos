@@ -3,6 +3,7 @@ import clientActions from '../store/client/actions'
 import { useDispatch, useSelector } from 'react-redux'
 import toast from 'react-hot-toast'
 import ClientData from './ClientData'
+import NewLending from './NewLending'
 
 const { createClient, getClients } = clientActions
 
@@ -10,6 +11,7 @@ const AddClient = ({ action }) => {
 
   const [confirmClient, setConfirmClient] = useState(false)
   const [payment, setPayment] = useState('')
+  const [lending, setLending] = useState(false)
   const clientStore = useSelector((store) => store.client)
   const dispatch = useDispatch()
 
@@ -37,14 +39,10 @@ const AddClient = ({ action }) => {
     phone: inpPhone.current.value,
     address: inpAddress.current.value,
     city: inpCity.current.value,
-    date: inpDate.current.value,
-    amount: inpAmount.current.value,
-    payment: payment,
-    dues: inpDues.current.value
   }
 
   const addClient = async () => {
-    
+
     dispatch(
       createClient({
         data,
@@ -105,33 +103,26 @@ const AddClient = ({ action }) => {
             '>Barrio / Ciudad:</p>
             <input ref={inpCity} className='w-full col-span-2 h-auto rounded-sm p-1 px-3 outline-none bg-slate-100 bg-opacity-60' type="text" name="city" id="city" />
           </label>
-          {/* <label className='flex flex-wrap items-center justify-center md:grid md:grid-cols-3 gap-2 px-10 text-slate-950 font-[500] mb-5'>
-            <p className=' text-start w-full md:w-auto col-span-1
-            '>Fecha de prestamo:</p>
-            <input ref={inpDate} className='w-full col-span-2 h-auto rounded-sm p-1 px-3 outline-none bg-slate-100 bg-opacity-60' type="date" name="date" id="date" />
-          </label>
-          <label className='flex flex-wrap items-center justify-center md:grid md:grid-cols-3 gap-2 px-10 text-slate-950 font-[500] mb-5'>
-            <p className=' text-start w-full md:w-auto col-span-1
-            '>Monto:</p>
-            <input ref={inpAmount} className='w-full col-span-2 h-auto rounded-sm p-1 px-3 outline-none bg-slate-100 bg-opacity-60' type="number" name="amount" id="amount" placeholder='$' />
-          </label>
           <label className='grid grid-cols-2 items-center md:grid md:grid-cols-3 gap-4 px-10 text-slate-950 font-[500] mb-5'>
             <p className=' col-span-2 md:col-span-1 text-start w-full md:w-auto
-            '>Tipo de pago:</p>
+            '>Agregar préstamo ?:</p>
             <label>
-              <input onClick={(e)=>setPayment(e.target.value)} className='peer hidden' type="radio" value={7} name='payment' id='payment1' />
-              <p className='peer-checked:bg-lime-700 peer-checked:text-slate-300 font-[600] cursor-pointer bg-slate-400 py-3 rounded-md'>Semanal</p>
+              <input onClick={(e) => {setLending(e.target.value)}} className='peer hidden' type="radio" value={true} name='payment' id='payment1' />
+              <p className='peer-checked:bg-lime-700 peer-checked:text-slate-300 font-[600] cursor-pointer bg-slate-400 py-3 rounded-md'>Si</p>
             </label>
             <label>
-              <input onClick={(e)=>setPayment(e.target.value)} className='peer hidden' type="radio" value={30} name='payment' id='payment2' />
-              <p className='peer-checked:bg-lime-700 peer-checked:text-slate-300 font-[600] cursor-pointer bg-slate-400 py-3 rounded-md'>Mensual</p>
+              <input onClick={(e) => {setLending(!e.target.value)}} className='peer hidden' type="radio" value={false} name='payment' id='payment2' />
+              <p className='peer-checked:bg-red-800 peer-checked:text-slate-300 font-[600] cursor-pointer bg-slate-400 py-3 rounded-md'>No</p>
             </label>
           </label>
-          <label className='flex flex-wrap items-center justify-center md:grid md:grid-cols-3 gap-2 px-10 text-slate-950 font-[500] mb-5'>
-            <p className=' text-start w-full md:w-auto col-span-1
-            '>Cuotas:</p>
-            <input ref={inpDues} className='w-full col-span-2 h-auto rounded-sm p-1 px-3 outline-none bg-slate-100 bg-opacity-60' type="number" name="dues" id="dues" />
-          </label> */}
+          {
+            lending ?
+              <div>
+                <NewLending />
+              </div>
+              :
+              null
+          }
           <div className='flex w-full justify-center items-center gap-20 pt-10'>
             <input onClick={() => setConfirmClient(!confirmClient)} className='bg-lime-700 active:bg-lime-600 w-[100px] cursor-pointer py-1.5 rounded-md font-[800]' type="button" value="Crear" />
             <input onClick={action} className='bg-red-800 active:bg-red-700 w-[100px] cursor-pointer py-1.5 rounded-md font-[800]' type="button" value="Cancelar" />
