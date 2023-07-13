@@ -12,8 +12,7 @@ const ClientData = ({ data, add, cancel, deleteClient }) => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getLendings({ client_id: data._id }))
-    
+    data._id ? dispatch(getLendings({ client_id: data._id })) : null
   }, [lendingStore?.lendings?.lendings?.length])
 
   const handleLending = (e) => {
