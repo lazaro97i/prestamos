@@ -8,13 +8,18 @@ const ClientData = ({ data, add, cancel, deleteClient }) => {
         <p className='text-slate-950 font-[600] text-3xl pb-5 px-5'>{add ? 'Desea confirmar cliente ?' : 'Datos del cliente'}</p>
         <div className='pb-6'>
           <p className='px-5 text-lime-700 col-span-2 font-[600] text-2xl pb-2'>{data ? data.name : null}</p>
-          <div className='flex col-span-2 w-full justify-center gap-8'>
-            <svg className=' pointer-events-none' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width='30px' fill="#ca8a04" stroke="#ca8a04"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <title></title> <g id="Complete"> <g id="edit"> <g> <path d="M20,16v4a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V6A2,2,0,0,1,4,4H8" fill="none" stroke="#ca8a04" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5"></path> <polygon fill="none" points="12.5 15.8 22 6.2 17.8 2 8.3 11.5 8 16 12.5 15.8" stroke="#ca8a04" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5"></polygon> </g> </g> </g> </g></svg>
-            {/* ----------------------------------------------------------- */}
-            <div onClick={deleteClient} >
-              <svg className=' pointer-events-none' viewBox="0 0 24 24" width='37px' fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M10 11V17" stroke="#b91c1c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> <path d="M14 11V17" stroke="#b91c1c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> <path d="M4 7H20" stroke="#b91c1c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> <path d="M6 7H12H18V18C18 19.6569 16.6569 21 15 21H9C7.34315 21 6 19.6569 6 18V7Z" stroke="#b91c1c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> <path d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z" stroke="#b91c1c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> </g></svg>
-            </div>
-          </div>
+          {
+            add ?
+              null
+              :
+              <div className='flex col-span-2 w-full justify-center gap-8'>
+                <svg className=' pointer-events-none' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width='30px' fill="#ca8a04" stroke="#ca8a04"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <title></title> <g id="Complete"> <g id="edit"> <g> <path d="M20,16v4a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V6A2,2,0,0,1,4,4H8" fill="none" stroke="#ca8a04" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5"></path> <polygon fill="none" points="12.5 15.8 22 6.2 17.8 2 8.3 11.5 8 16 12.5 15.8" stroke="#ca8a04" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5"></polygon> </g> </g> </g> </g></svg>
+                {/* ----------------------------------------------------------- */}
+                <div onClick={deleteClient} >
+                  <svg className=' pointer-events-none' viewBox="0 0 24 24" width='37px' fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M10 11V17" stroke="#b91c1c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> <path d="M14 11V17" stroke="#b91c1c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> <path d="M4 7H20" stroke="#b91c1c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> <path d="M6 7H12H18V18C18 19.6569 16.6569 21 15 21H9C7.34315 21 6 19.6569 6 18V7Z" stroke="#b91c1c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> <path d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z" stroke="#b91c1c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> </g></svg>
+                </div>
+              </div>
+          }
         </div>
         <div className=' grid grid-cols-2 gap-3 items-center w-max-[600px]'>
           <span className='font-[700] text-end col-span-1 text-slate-950 pr-3'>Documento:</span><p className=' text-slate-950 text-start font-[500] col-span-1 pl-3'>{data ? data.dni : null}</p>
