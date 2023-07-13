@@ -3,11 +3,14 @@ import { createAsyncThunk } from "@reduxjs/toolkit"
 
 const API_URL = import.meta.env.VITE_APP_API_URL
 
-const createLending = createAsyncThunk('lendings/createLending', async({data})=> {
+const createLending = createAsyncThunk('lendings/createLending', async({data, modalConfirm, modalLending})=> {
 
   try{
-
     const response = await axios.post(`${API_URL}/lending`, {data: data})
+    setTimeout(()=>{
+      modalConfirm(),
+      modalLending()
+    },800)
     return{
       client: response.data,
       message: 'Lending created successfully :)'

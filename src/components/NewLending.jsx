@@ -23,8 +23,16 @@ const NewLending = ({ id, modalLending }) => {
     client_id: id
   }
 
+  
   const addLending = () => {
-    dispatch(createLending({data}))
+    dispatch(createLending({
+      data,
+      modalConfirm,
+      modalLending
+    }))
+  }
+  const modalConfirm = ()=> {
+    setConfirm(!confirm)
   }
 
   const DataLendign = ({ setConfirm, data }) => {
