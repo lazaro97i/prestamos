@@ -12,7 +12,7 @@ const createLending = createAsyncThunk('lendings/createLending', async({data, mo
       modalLending()
     },800)
     return{
-      client: response.data,
+      lending: response.data,
       message: 'Lending created successfully :)'
     }
 

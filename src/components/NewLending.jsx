@@ -1,12 +1,13 @@
-import React, { useRef, useState } from 'react'
-import ClientData from './ClientData'
+import React, { useEffect, useRef, useState } from 'react'
 import lendigActions from '../store/lending/actions.js'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { toast } from 'react-hot-toast'
 
-const { createLending } = lendigActions
+const { createLending, getLendings } = lendigActions
 
 const NewLending = ({ id, modalLending }) => {
 
+  const lendingStore = useSelector((store) => store.lending)
   const [payment, setPayment] = useState('')
   const [confirm, setConfirm] = useState(false)
   const dispatch = useDispatch()
@@ -23,7 +24,6 @@ const NewLending = ({ id, modalLending }) => {
     client_id: id
   }
 
-  
   const addLending = () => {
     dispatch(createLending({
       data,
@@ -34,6 +34,16 @@ const NewLending = ({ id, modalLending }) => {
   const modalConfirm = ()=> {
     setConfirm(!confirm)
   }
+
+  useEffect(()=>{
+    if(lendingStore?.lending?.success){
+      toast.success('Préstamo agregado correctamente 👍')
+    }else{
+      lendingStore?.message?.message?.map((e) => {
+        toast.error(e.message)
+      })
+    }
+  },[lendingStore])
 
   const DataLendign = ({ setConfirm, data }) => {
 

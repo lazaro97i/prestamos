@@ -39,7 +39,7 @@ const TableClients = () => {
         dispatch(deleteClient(data)),
         {
           loading: 'Eliminando cliente ...',
-          success: 'Cliente eliminado correctamente',
+          success: 'Cliente eliminado correctamente 👍',
           error: 'Error al eliminar cliente'
         }
       )
