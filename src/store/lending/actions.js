@@ -6,7 +6,7 @@ const API_URL = import.meta.env.VITE_APP_API_URL
 const createLending = createAsyncThunk('lendings/createLending', async({data, modalConfirm, modalLending})=> {
 
   try{
-    const response = await axios.post(`${API_URL}/lending`, {data: data})
+    const response = await axios.post(`${API_URL}/lending`, data)
     setTimeout(()=>{
       modalConfirm(),
       modalLending()

@@ -4,7 +4,7 @@ const controller = {
 
   create: async(req, res, next) => {
 
-    const { date, amount, typeOfPay, dues, payments, active=true, client_id } = req.body.data
+    const { date, amount, typeOfPay, dues, payments, active=true, client_id } = req.body
 
 
     try{
