@@ -5,12 +5,11 @@ import toast from 'react-hot-toast'
 import ClientData from './ClientData'
 import NewLending from './NewLending'
 
-const { createClient, getClients } = clientActions
+const { createClient } = clientActions
 
 const AddClient = ({ action }) => {
 
   const [confirmClient, setConfirmClient] = useState(false)
-  const [payment, setPayment] = useState('')
   const [lending, setLending] = useState(false)
   const clientStore = useSelector((store) => store.client)
   const dispatch = useDispatch()
@@ -20,9 +19,6 @@ const AddClient = ({ action }) => {
   const inpPhone = useRef('')
   const inpAddress = useRef('')
   const inpCity = useRef('')
-  const inpDate = useRef('')
-  const inpAmount = useRef('')
-  const inpDues = useRef('')
 
   const successAlert = () => {
     toast.success('Cliente agregado correctamente 👍')
@@ -103,26 +99,6 @@ const AddClient = ({ action }) => {
             '>Barrio / Ciudad:</p>
             <input ref={inpCity} className='w-full col-span-2 h-auto rounded-sm p-1 px-3 outline-none bg-slate-100 bg-opacity-60' type="text" name="city" id="city" />
           </label>
-          <label className='grid grid-cols-2 items-center md:grid md:grid-cols-3 gap-4 px-10 text-slate-950 font-[500] mb-5'>
-            <p className=' col-span-2 md:col-span-1 text-start w-full md:w-auto
-            '>Agregar préstamo ?:</p>
-            <label>
-              <input onClick={(e) => {setLending(e.target.value)}} className='peer hidden' type="radio" value={true} name='payment' id='payment1' />
-              <p className='peer-checked:bg-lime-700 peer-checked:text-slate-300 font-[600] cursor-pointer bg-slate-400 py-3 rounded-md'>Si</p>
-            </label>
-            <label>
-              <input onClick={(e) => {setLending(!e.target.value)}} className='peer hidden' type="radio" value={false} name='payment' id='payment2' />
-              <p className='peer-checked:bg-red-800 peer-checked:text-slate-300 font-[600] cursor-pointer bg-slate-400 py-3 rounded-md'>No</p>
-            </label>
-          </label>
-          {
-            lending ?
-              <div>
-                <NewLending />
-              </div>
-              :
-              null
-          }
           <div className='flex w-full justify-center items-center gap-20 pt-10'>
             <input onClick={() => setConfirmClient(!confirmClient)} className='bg-lime-700 active:bg-lime-600 w-[100px] cursor-pointer py-1.5 rounded-md font-[800]' type="button" value="Crear" />
             <input onClick={action} className='bg-red-800 active:bg-red-700 w-[100px] cursor-pointer py-1.5 rounded-md font-[800]' type="button" value="Cancelar" />

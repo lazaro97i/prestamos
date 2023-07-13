@@ -36,7 +36,8 @@ const schema = Joi.object({
     'string.min': 'Barrio/Ciudad demasiado corta',
     'string.max': 'Barrio/Ciudad demasiado larga',
     'string.base': 'La Barrio/Ciudad debe ser un texto',
-  })
+  }),
+  lendings: Joi.array()
 })
 
 export default schema
