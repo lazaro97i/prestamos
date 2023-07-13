@@ -1,9 +1,35 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import NewLending from './NewLending'
+import lendingActions from '../store/lending/actions'
+import { useDispatch, useSelector } from 'react-redux'
+
+const { getLendings } = lendingActions
 
 const ClientData = ({ data, add, cancel, deleteClient }) => {
 
+  const lendingStore = useSelector((store) => store.lending)
+  const [lending, setLending] = useState(false)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getLendings({client_id: data._id}))
+  }, [lendingStore?.lendings?.lendings?.length])
+
+  const handleLending = (e) =>{
+    console.log(lendingStore)
+  }
+
   return (
     <div className='fixed px-1 top-0 left-0 w-full flex flex-col justify-center items-center bg-slate-950 bg-opacity-90 py-10 h-screen'>
+      {
+        lending ?
+          <NewLending
+          id={data._id}
+          modalLending={()=>setLending(!lending)}
+          />
+          :
+          null
+      }
       <div className='relative flex flex-col justify-center w-full max-w-[700px] max-h-screen overflow-auto rounded-md md:w-4/5 bg-slate-300 py-10'>
         <p className='text-slate-950 font-[600] text-3xl pb-5 px-5'>{add ? 'Desea confirmar cliente ?' : 'Datos del cliente'}</p>
         <div className='pb-6'>
@@ -34,9 +60,16 @@ const ClientData = ({ data, add, cancel, deleteClient }) => {
               null
               :
               <>
-                <span className='font-[700] text-end col-span-1 text-slate-950 pr-3'>Préstamos:</span><p className=' text-slate-950 text-start font-[500] col-span-1 pl-3'>q</p>
+                <span className='font-[700] text-end col-span-1 text-slate-950 pr-3'>Préstamos:</span><p className=' text-slate-950 text-start font-[500] col-span-1 pl-3'>
+                  {
+                    lendingStore?.lendings?.lendings?.length ? 
+                    lendingStore?.lendings?.lendings?.length
+                    :
+                    'No tiene préstamos activos'
+                  }
+                </p>
                 <div className=' col-span-2 pt-2'>
-                  <input className='text-slate-950 border-b-2 border-slate-950 active:text-slate-600 text-xl cursor-pointer font-[500] self-center' type="button" value="Ver préstamos" />
+                  <input onClick={handleLending} className='text-slate-950 border-b-2 border-slate-950 active:text-slate-600 text-xl cursor-pointer font-[500] self-center' type="button" value="Ver préstamos" />
                 </div>
               </>
           }
@@ -52,7 +85,7 @@ const ClientData = ({ data, add, cancel, deleteClient }) => {
                   <div className='flex w-full justify-center gap-10'>
                   </div>
                   <div className='flex gap-5 w-full justify-center items-center rounded-md pt-8'>
-                    <input className='bg-lime-700 active:bg-lime-600 cursor-pointer w-[150px] h-[45px] py-1.5 rounded-md font-[800]' type="button" value="Nuevo Prestamo" />
+                    <input onClick={() => setLending(!lending)} className='bg-lime-700 active:bg-lime-600 cursor-pointer w-[150px] h-[45px] py-1.5 rounded-md font-[800]' type="button" value="Nuevo Prestamo" />
                     <input onClick={cancel} className='bg-slate-700 py-1.5 active:bg-slate-400 active:text-slate-950 w-[150px] h-[45px] cursor-pointer rounded-md font-[800]' type="button" value="Atrás" />
                   </div>
                 </>

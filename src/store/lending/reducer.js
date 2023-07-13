@@ -1,7 +1,7 @@
 import { createReducer } from "@reduxjs/toolkit"
 import lendingActions from "./actions"
 
-const { createLending } = lendingActions
+const { createLending, getLendings } = lendingActions
 
 const initialState = {
   lendings: [],
@@ -14,6 +14,13 @@ const lendingReducer = createReducer(initialState, (builder) => {
     .addCase(createLending.fulfilled, (state, action)=>{
       let newState = {
         lending: action.payload.lending,
+        message: action.payload.message
+      }
+      return newState
+    })
+    .addCase(getLendings.fulfilled, (store, action) => {
+      let newState = {
+        lendings: action.payload.lendings,
         message: action.payload.message
       }
       return newState
