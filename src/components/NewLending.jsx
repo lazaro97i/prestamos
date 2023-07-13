@@ -19,10 +19,12 @@ const NewLending = ({ id, modalLending }) => {
   let data = {
     date: inpDate.current.value,
     amount: inpAmount.current.value,
-    typeOfPay: payment,
     dues: inpDues.current.value,
+    typeOfPay: parseInt(payment),
     client_id: id
   }
+
+  console.log(data.typeOfPay)
 
   const addLending = () => {
     dispatch(createLending({
@@ -57,7 +59,7 @@ const NewLending = ({ id, modalLending }) => {
               <span className='font-[700] text-end col-span-1 text-slate-950 pr-3'>Monto:</span><p className=' text-slate-950 text-start font-[500] col-span-1 pl-3'>$ {data ? data.amount : null}</p>
               <span className='font-[700] text-end col-span-1 text-slate-950 pr-3'>Tipo de pago:</span>
               <p className=' text-slate-950 text-start font-[500] col-span-1 pl-3'>
-                {data.typeOfPayment === '7' ? 'Semanal' : 'Mensual'}
+                {data?.typeOfPay === 7 ? 'Semanal' : 'Mensual'}
               </p>
               <span className='font-[700] text-end col-span-1 text-slate-950 pr-3'>Cuotas:</span><p className=' text-slate-950 text-start font-[500] col-span-1 pl-3'>{data ? data.dues : null}</p>
             </div>
