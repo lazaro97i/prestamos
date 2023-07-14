@@ -1,17 +1,23 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import NewLending from './NewLending'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import lendingActions from '../store/lending/actions'
+
+const { getAllLendings } = lendingActions
 
 
 const ClientData = ({ data, add, cancel, deleteClient }) => {
 
   const lendingStore = useSelector((store) => store.lending)
   const [lending, setLending] = useState(false)
-  
-  const handleLending = (e) => {
-    console.log(lendingStore)
-  }
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if(lendingStore?.lending?.success){
+      dispatch(getAllLendings())
+    }
+  }, [lendingStore?.lending])
 
   return (
     <div className='fixed px-1 top-0 left-0 w-full flex flex-col justify-center items-center bg-slate-950 bg-opacity-90 py-10 h-screen'>
