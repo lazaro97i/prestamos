@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useLocation } from 'react-router'
+import { useLocation, useNavigate } from 'react-router'
 import clientActions from '../store/client/actions'
 import lendingActions from '../store/lending/actions'
 import { Link } from 'react-router-dom'
@@ -13,6 +13,7 @@ const Lendings = () => {
   const lendingStore = useSelector((store) => store.lending)
   const clientStore = useSelector((store) => store.client)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   if (lendingStore?.allLendings?.lendings?.length === 0
     || clientStore?.clients?.length === 0) {
@@ -29,9 +30,9 @@ const Lendings = () => {
       <div className='relative w-full flex justify-center items-center mb-5 h-[40px] max-w-[840px]'>
         {
           query ?
-            <Link to={'/lendings'} className='w-[40px] absolute left-5'>
-              <svg fill="#0f172a" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M222.927 580.115l301.354 328.512c24.354 28.708 20.825 71.724-7.883 96.078s-71.724 20.825-96.078-7.883L19.576 559.963a67.846 67.846 0 01-13.784-20.022 68.03 68.03 0 01-5.977-29.488l.001-.063a68.343 68.343 0 017.265-29.134 68.28 68.28 0 011.384-2.6 67.59 67.59 0 0110.102-13.687L429.966 21.113c25.592-27.611 68.721-29.247 96.331-3.656s29.247 68.721 3.656 96.331L224.088 443.784h730.46c37.647 0 68.166 30.519 68.166 68.166s-30.519 68.166-68.166 68.166H222.927z"></path></g></svg>
-            </Link>
+            <div onClick={()=>navigate(-1)} className='w-[40px] absolute left-5'>
+              <svg fill="#0f172a" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M222.927 580.115l301.354 328.512c24.354 28.708 20.825 71.724-7.883 96.078s-71.724 20.825-96.078-7.883L19.576 559.963a67.846 67.846 0 01-13.784-20.022 68.03 68.03 0 01-5.977-29.488l.001-.063a68.343 68.343 0 017.265-29.134 68.28 68.28 0 011.384-2.6 67.59 67.59 0 0110.102-13.687L429.966 21.113c25.592-27.611 68.721-29.247 96.331-3.656s29.247 68.721 3.656 96.331L224.088 443.784h730.46c37.647 0 68.166 30.519 68.166 68.166s-30.519 68.166-68.166 68.166H222.927z"></path></g></svg>
+            </div>
             :
             null
         }
@@ -86,7 +87,7 @@ const Lendings = () => {
                     clientStore?.clients?.response?.map((client) => {
                       return (
                         <tr key={client._id} className='text-slate-950 font-[400] py-3 border-b border-slate-500 justify-center'>
-                          <td onClick={() => setIdQuery(client._id)} className='text-start pl-6 active:bg-slate-600 active:text-slate-300 py-2 md:hover:bg-slate-600 md:hover:text-slate-300'>
+                          <td className='text-start pl-6 active:bg-slate-600 active:text-slate-300 py-2 md:hover:bg-slate-600 md:hover:text-slate-300'>
                             <Link to={`?id=${client._id}`} className='flex'>
                               {client.name}
                             </Link>
