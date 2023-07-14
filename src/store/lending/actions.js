@@ -26,12 +26,12 @@ const createLending = createAsyncThunk('lendings/createLending', async({data, mo
 
 })
 
-const getLendings = createAsyncThunk('lendings/getLending', async({client_id}) => {
+const getLendigsClient = createAsyncThunk('lendings/getLending', async({client_id}) => {
 
   try{
     const response = await axios.get(`${API_URL}/lending/?id=${client_id}`)
     return{
-      lendings: response.data,
+      lendingsClient: response.data,
       message: 'Lendings founds successfully :)'
     }
   }catch(e){
@@ -43,9 +43,27 @@ const getLendings = createAsyncThunk('lendings/getLending', async({client_id}) =
   }
 })
 
+const getAllLendings = createAsyncThunk('lendings/getAll', async() => {
+
+  try{
+    const response = await axios.get(`${API_URL}/lending`)
+    return{
+      allLendings: response.data,
+      message: 'Lendings found successfully :)'
+    }
+  }catch(e){
+    console.log(e)
+    return{
+      allLendings: null,
+      message: 'Lendings not found :('
+    }
+  }
+})
+
 const lendingActions = {
   createLending,
-  getLendings
+  getLendigsClient,
+  getAllLendings
 }
 
 export default lendingActions

@@ -3,7 +3,7 @@ import lendigActions from '../store/lending/actions.js'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-hot-toast'
 
-const { createLending, getLendings } = lendigActions
+const { createLending } = lendigActions
 
 const NewLending = ({ id, modalLending }) => {
 
@@ -23,8 +23,6 @@ const NewLending = ({ id, modalLending }) => {
     typeOfPay: parseInt(payment),
     client_id: id
   }
-
-  console.log(data.typeOfPay)
 
   const addLending = () => {
     dispatch(createLending({

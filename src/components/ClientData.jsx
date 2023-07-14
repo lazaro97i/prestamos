@@ -1,20 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import NewLending from './NewLending'
-import lendingActions from '../store/lending/actions'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 
-const { getLendings } = lendingActions
 
 const ClientData = ({ data, add, cancel, deleteClient }) => {
 
   const lendingStore = useSelector((store) => store.lending)
   const [lending, setLending] = useState(false)
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    data._id ? dispatch(getLendings({ client_id: data._id })) : null
-  }, [lendingStore?.lendings?.lendings?.length])
-
+  
   const handleLending = (e) => {
     console.log(lendingStore)
   }
@@ -64,14 +58,17 @@ const ClientData = ({ data, add, cancel, deleteClient }) => {
               <>
                 <span className='font-[700] text-end col-span-1 text-slate-950 pr-3'>Préstamos:</span><p className=' text-slate-950 text-start font-[500] col-span-1 pl-3'>
                   {
-                    lendingStore?.lendings?.lendings?.length ?
-                      lendingStore?.lendings?.lendings?.length
+                    lendingStore?.allLendings?.lendings?.length ?
+                    lendingStore?.allLendings?.lendings.filter(e=>e.client_id === data._id).length
                       :
                       'No tiene préstamos activos'
                   }
                 </p>
                 <div className=' col-span-2 pt-2'>
-                  <input onClick={handleLending} className='text-slate-950 border-b-2 border-slate-950 active:text-slate-600 text-xl cursor-pointer font-[500] self-center' type="button" value="Ver préstamos" />
+                  <Link to={`/lendings?id=${data._id}`} className='text-slate-950 border-b-2 border-slate-950 active:text-slate-600 text-xl cursor-pointer font-[500] self-center'
+                  >
+                    Ver Préstamos
+                  </Link>
                 </div>
               </>
           }

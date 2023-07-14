@@ -75,7 +75,27 @@ const controller = {
       console.log(err)
       next()
     }
+  },
+  getAllLendings: async(req, res, next) => {
 
+    try{
+      const lendings = await Lending.find()
+      if(lendings){
+        res.status(200).json({
+          success: true,
+          lendings: lendings,
+          message: 'Lendings found successfully :)'
+        })
+      }else{
+        res.status(404).json({
+          success: false,
+          message: 'Lendings not found :('
+        })
+      }
+    }catch(e){
+      console.log(e)
+      next()
+    }
   }
   
 
