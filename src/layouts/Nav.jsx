@@ -13,7 +13,7 @@ const Nav = () => {
       </section>
       {
         nav ?
-          <div className='fixed top-[72px] w-full h-screen grid grid-cols-1 md:grid-cols-3'>
+          <div className='fixed top-[72px] w-full h-screen grid grid-cols-1 md:grid-cols-3 z-10'>
             <nav className='flex flex-col bg-slate-950 items-start py-10 px-5 gap-3 col-span-3 md:col-span-1 font-[500] relative'>
               <img onClick={() => setNav(!nav)} className='w-[40px] self-end absolute top-3 cursor-pointer' src="./icons/cancel.svg" alt="" />
               <Link onClick={() => setNav(!nav)} to={'/'} className='w-auto h-[30px] hover:border-slate-300 hover:border-b-2 text-start'>Clientes</Link>
