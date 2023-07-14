@@ -65,8 +65,7 @@ const ClientData = ({ data, add, cancel, deleteClient }) => {
                   }
                 </p>
                 <div className=' col-span-2 pt-2'>
-                  <Link to={`/lendings?id=${data._id}`} className='text-slate-950 border-b-2 border-slate-950 active:text-slate-600 text-xl cursor-pointer font-[500] self-center'
-                  >
+                  <Link to={`/lendings?id=${data._id}`} className='text-slate-950 border-b-2 border-slate-950 active:text-slate-600 text-xl cursor-pointer font-[500] self-center'>
                     Ver Préstamos
                   </Link>
                 </div>
