@@ -6,9 +6,6 @@ const schema = new mongoose.Schema({
   phone: {type:Number},
   address: {type: String},
   city: {type: String},
-  lendings: {type: [
-    {type: mongoose.ObjectId}
-  ]}
 }, {timestamps: true})
 
 export const Client = mongoose.model('client', schema)

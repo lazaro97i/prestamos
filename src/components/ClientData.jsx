@@ -1,9 +1,29 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+import NewLending from './NewLending'
+import { useSelector } from 'react-redux'
+
 
 const ClientData = ({ data, add, cancel, deleteClient }) => {
 
+  const lendingStore = useSelector((store) => store.lending)
+  const [lending, setLending] = useState(false)
+  
+  const handleLending = (e) => {
+    console.log(lendingStore)
+  }
+
   return (
     <div className='fixed px-1 top-0 left-0 w-full flex flex-col justify-center items-center bg-slate-950 bg-opacity-90 py-10 h-screen'>
+      {
+        lending ?
+          <NewLending
+            id={data._id}
+            modalLending={() => setLending(!lending)}
+          />
+          :
+          null
+      }
       <div className='relative flex flex-col justify-center w-full max-w-[700px] max-h-screen overflow-auto rounded-md md:w-4/5 bg-slate-300 py-10'>
         <p className='text-slate-950 font-[600] text-3xl pb-5 px-5'>{add ? 'Desea confirmar cliente ?' : 'Datos del cliente'}</p>
         <div className='pb-6'>
@@ -13,7 +33,9 @@ const ClientData = ({ data, add, cancel, deleteClient }) => {
               null
               :
               <div className='flex col-span-2 w-full justify-center gap-8'>
-                <svg className=' pointer-events-none' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width='30px' fill="#ca8a04" stroke="#ca8a04"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <title></title> <g id="Complete"> <g id="edit"> <g> <path d="M20,16v4a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V6A2,2,0,0,1,4,4H8" fill="none" stroke="#ca8a04" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5"></path> <polygon fill="none" points="12.5 15.8 22 6.2 17.8 2 8.3 11.5 8 16 12.5 15.8" stroke="#ca8a04" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5"></polygon> </g> </g> </g> </g></svg>
+                <div className='w-[37px] flex items-center justify-center'>
+                  <svg className=' pointer-events-none' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width='30px' fill="#ca8a04" stroke="#ca8a04"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <title></title> <g id="Complete"> <g id="edit"> <g> <path d="M20,16v4a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V6A2,2,0,0,1,4,4H8" fill="none" stroke="#ca8a04" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5"></path> <polygon fill="none" points="12.5 15.8 22 6.2 17.8 2 8.3 11.5 8 16 12.5 15.8" stroke="#ca8a04" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5"></polygon> </g> </g> </g> </g></svg>
+                </div>
                 {/* ----------------------------------------------------------- */}
                 <div onClick={deleteClient} >
                   <svg className=' pointer-events-none' viewBox="0 0 24 24" width='37px' fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M10 11V17" stroke="#b91c1c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> <path d="M14 11V17" stroke="#b91c1c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> <path d="M4 7H20" stroke="#b91c1c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> <path d="M6 7H12H18V18C18 19.6569 16.6569 21 15 21H9C7.34315 21 6 19.6569 6 18V7Z" stroke="#b91c1c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> <path d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z" stroke="#b91c1c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> </g></svg>
@@ -34,9 +56,19 @@ const ClientData = ({ data, add, cancel, deleteClient }) => {
               null
               :
               <>
-                <span className='font-[700] text-end col-span-1 text-slate-950 pr-3'>Préstamos:</span><p className=' text-slate-950 text-start font-[500] col-span-1 pl-3'>q</p>
+                <span className='font-[700] text-end col-span-1 text-slate-950 pr-3'>Préstamos:</span><p className=' text-slate-950 text-start font-[500] col-span-1 pl-3'>
+                  {
+                    lendingStore?.allLendings?.lendings?.length ?
+                    lendingStore?.allLendings?.lendings.filter(e=>e.client_id === data._id).length
+                      :
+                      'No tiene préstamos activos'
+                  }
+                </p>
                 <div className=' col-span-2 pt-2'>
-                  <input className='text-slate-950 border-b-2 border-slate-950 active:text-slate-600 text-xl cursor-pointer font-[500] self-center' type="button" value="Ver préstamos" />
+                  <Link to={`/lendings?id=${data._id}`} className='text-slate-950 border-b-2 border-slate-950 active:text-slate-600 text-xl cursor-pointer font-[500] self-center'
+                  >
+                    Ver Préstamos
+                  </Link>
                 </div>
               </>
           }
@@ -52,7 +84,7 @@ const ClientData = ({ data, add, cancel, deleteClient }) => {
                   <div className='flex w-full justify-center gap-10'>
                   </div>
                   <div className='flex gap-5 w-full justify-center items-center rounded-md pt-8'>
-                    <input className='bg-lime-700 active:bg-lime-600 cursor-pointer w-[150px] h-[45px] py-1.5 rounded-md font-[800]' type="button" value="Nuevo Prestamo" />
+                    <input onClick={() => setLending(!lending)} className='bg-lime-700 active:bg-lime-600 cursor-pointer w-[150px] h-[45px] py-1.5 rounded-md font-[800]' type="button" value="Nuevo Prestamo" />
                     <input onClick={cancel} className='bg-slate-700 py-1.5 active:bg-slate-400 active:text-slate-950 w-[150px] h-[45px] cursor-pointer rounded-md font-[800]' type="button" value="Atrás" />
                   </div>
                 </>
