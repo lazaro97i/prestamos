@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import clientActions from '../store/client/actions'
 import lendingActions from '../store/lending/actions'
-import AddClient from './AddClient'
+import ClientForm from './ClientForm'
 import toast from 'react-hot-toast'
 import ClientData from './ClientData'
 
@@ -96,8 +96,8 @@ const TableClients = () => {
       </div>
       {
         newClient ?
-          <AddClient
-            action={createClient}
+          <ClientForm
+            add={createClient}
           />
           :
           null
