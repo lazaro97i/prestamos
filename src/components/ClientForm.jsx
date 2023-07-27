@@ -3,14 +3,12 @@ import clientActions from '../store/client/actions'
 import { useDispatch, useSelector } from 'react-redux'
 import toast from 'react-hot-toast'
 import ClientData from './ClientData'
-import NewLending from './NewLending'
 
 const { createClient } = clientActions
 
-const AddClient = ({ action }) => {
+const ClientForm = ({ add }) => {
 
   const [confirmClient, setConfirmClient] = useState(false)
-  const [lending, setLending] = useState(false)
   const clientStore = useSelector((store) => store.client)
   const dispatch = useDispatch()
 
@@ -42,7 +40,7 @@ const AddClient = ({ action }) => {
     dispatch(
       createClient({
         data,
-        action,
+        add,
         handleConfirm
       })
     )
@@ -101,7 +99,7 @@ const AddClient = ({ action }) => {
           </label>
           <div className='flex w-full justify-center items-center gap-20 pt-10'>
             <input onClick={() => setConfirmClient(!confirmClient)} className='bg-lime-700 active:bg-lime-600 w-[100px] cursor-pointer py-1.5 rounded-md font-[800]' type="button" value="Crear" />
-            <input onClick={action} className='bg-red-800 active:bg-red-700 w-[100px] cursor-pointer py-1.5 rounded-md font-[800]' type="button" value="Cancelar" />
+            <input onClick={add} className='bg-red-800 active:bg-red-700 w-[100px] cursor-pointer py-1.5 rounded-md font-[800]' type="button" value="Cancelar" />
           </div>
         </form>
       </div>
@@ -109,4 +107,4 @@ const AddClient = ({ action }) => {
   )
 }
 
-export default AddClient
+export default ClientForm
