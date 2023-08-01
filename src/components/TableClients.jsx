@@ -54,6 +54,7 @@ const TableClients = () => {
     }
   }
   const handleDelete = (e) => {
+    console.log(e)
     setDelClient(!delClient)
   }
   const btnEdit = (e) => {
